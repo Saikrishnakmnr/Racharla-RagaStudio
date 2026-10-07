@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Racharla RagaStudio - Secured Suite</title>
+    <style>
+        :root {
+            --primary: #00ecbd;
+            --bg-dark: #0d0d11;
+            --card-bg: #15151e;
+            --input-bg: #1e1e28;
+            --text-main: #ffffff;
+            --text-muted: #8a8a98;
+            --safe-green: #28a745;
+        }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: var(--bg-dark); 
+            color: var(--text-main); 
+            padding: 20px; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container { 
+            width: 100%; max-width: 700px; background: var(--card-bg); padding: 30px; 
+            border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.7); box-sizing: border-box;
+        }
+        .brand-header { text-align: center; margin-bottom: 25px; }
+        .brand-logo {
+            display: inline-flex; align-items: center; justify-content: center;
+            background: linear-gradient(135deg, #00ecbd, #00bfff); color: #000;
+            font-weight: 900; font-size: 22px; width: 55px; height: 55px;
+            border-radius: 12px; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0, 236, 189, 0.4);
+        }
+        h2 { margin: 0; color: var(--primary); font-size: 28px; font-weight: 800; }
+        .powered-by { font-size: 13px; color: var(--text-muted); margin: 5px 0 2px 0; font-weight: 600; text-transform: uppercase; }
+        .product-of { font-size: 11px; color: var(--primary); font-style: italic; margin-bottom: 15px; }
+        
+        /* --- SECURE VAULT CONTAINER --- */
+        .security-badge {
+            background: rgba(40, 167, 69, 0.1); border: 1px solid var(--safe-green);
+            padding: 8px 12px; border-radius: 6px; font-size: 12px; color: #63e281;
+            margin-bottom: 10px; display: flex; align-items: center; gap: 6px; font-weight: 600;
+        }
+        .privacy-row { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-muted); margin-bottom: 15px; }
+        .privacy-row input[type="checkbox"] { width: auto; margin: 0; cursor: pointer; }
+
+        label { display: block; margin-top: 15px; font-weight: bold; color: #ccc; font-size: 14px; }
+        textarea, input, select { 
+            width: 100%; padding: 12px; margin: 8px 0 12px 0; background: var(--input-bg); 
+            color: white; border: 1px solid #2d2d3d; border-radius: 8px; box-sizing: border-box; font-size: 15px;
+        }
+        textarea:focus, input:focus, select:focus { outline: 1px solid var(--primary); }
+        .flex-row { display: flex; gap: 15px; margin-bottom: 5px; }
+        .flex-child { flex: 1; }
+        .lang-options { display: flex; gap: 10px; margin: 8px 0 12px 0; }
+        .lang-btn { flex: 1; padding: 12px; background: var(--input-bg); border: 1px solid #333; color: white; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .lang-btn.active { background: var(--primary); color: #000; border-color: var(--primary); }
+        
+        button#generateBtn { 
+            background: var(--primary); color: #111; border: none; padding: 16px 20px; border-radius: 8px; 
+            cursor: pointer; font-weight: bold; width: 100%; font-size: 16px; margin-top: 15px;
+        }
+        #status { margin: 20px 0; padding: 12px; border-radius: 8px; background: #1a1a24; text-align: center; color: #00bfff; font-weight: bold; }
+        .audio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; }
+        .audio-card { background: var(--input-bg); padding: 15px; border-radius: 8px; border: 1px solid #2d2d3d; text-align: center; }
+        .audio-card.master { grid-column: span 2; background: #162524; border: 1px solid var(--primary); }
+        .audio-card span { font-size: 12px; color: var(--primary); display: block; margin-bottom: 8px; font-weight: bold; text-transform: uppercase; }
+        audio { width: 100%; }
+        .download-box { margin-top: 15px; display: none; text-align: center; }
+        .dl-btn { background: #007bff; color: white; border: none; padding: 12px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; width: 100%; }
+        #coverCanvas { display: none; margin: 15px auto; border-radius: 8px; }
+        #lyricsBox { background: #1a1a24; padding: 15px; border-radius: 8px; text-align: left; white-space: pre-line; max-height: 200px; overflow-y: auto; border: 1px solid #2a2a35; }
+        .app-footer { margin-top: 35px; padding-top: 20px; border-top: 1px solid #22222f; text-align: center; font-size: 13px; color: var(--text-muted); }
+        .developer-tag { font-weight: bold; color: #ffffff; }
+        .social-links a { color: var(--primary); text-decoration: none; margin: 0 10px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="brand-header">
+        <div class="brand-logo">R⚡G</div>
+        <h2>Racharla RagaStudio</h2>
+        <div class="powered-by">Powered by RacharlaGPT</div>
+        <div class="product-of">A Product of RacharlaGPT</div>
+    </div>
+    
+    <div class="security-badge">🔒 End-to-End Client Encryption Active (Direct Google API Link)</div>
+    
+    <label for="geminiKey">Gemini API Key</label>
+    <input type="password" id="geminiKey" placeholder="Paste your secret key here..." oninput="handleKeyStorage()">
+    
+    <div class="privacy-row">
+        <input type="checkbox" id="rememberKeyCheck" checked onchange="handleKeyStorage()">
+        <label for="rememberKeyCheck" style="display:inline; margin:0; font-weight:normal; cursor:pointer;">Remember key on this browser securely</label>
+    </div>
+    
+    <div class="flex-row">
+        <div class="flex-child">
+            <label for="genreSelect">Musical Style / Category</label>
+            <select id="genreSelect">
+                <option value="Tollywood mass thumping dance beat with heavy local percussion">Tollywood (Mass & Beats)</option>
+                <option value="Bollywood sweet romantic cinematic melody with acoustic guitar and flute">Bollywood (Melody & Romantic)</option>
+                <option value="Epic majestic cinematic background score with classical orchestration">Cinematic (Background Score)</option>
+                <option value="Traditional spiritual devotional Bhakti track with classical harmonium and sitar">Devotional (Bhakti Tracks)</option>
+                <option value="Lo-fi relaxed chill hip hop beat for studying and focus">Lo-fi Chill Hop</option>
+            </select>
+        </div>
+        <div class="flex-child">
+            <label for="durationSelect">Target Audio Runtime</label>
+            <select id="durationSelect">
+                <option value="1">1 Minute</option>
+                <option value="3">3 Minutes</option>
+                <option value="5">5 Minutes</option>
+            </select>
+        </div>
+    </div>
+
+    <label>Select Target Language</label>
+    <div class="lang-options">
+        <button class="lang-btn active" id="lang-te" onclick="setLanguage('Telugu')">తెలుగు</button>
+        <button class="lang-btn" id="lang-hi" onclick="setLanguage('Hindi')">हिन्दी</button>
+        <button class="lang-btn" id="lang-en" onclick="setLanguage('English')">English</button>
+    </div>
+
+    <label for="promptInput">Describe Topic / Custom Context (Optional)</label>
+    <textarea id="promptInput" rows="2" placeholder="Example: A song about friendship, emotional rain vibes..."></textarea>
+    
+    <button id="generateBtn" onclick="generateLongSong()">Compile Master Tracks & Lyrics</button>
+    
+    <div id="status">Status: Ready to orchestrate layout</div>
+    
+    <div class="audio-grid">
+        <div class="audio-card master">
+            <span>🔊 Full Master Continuous Track (Stitched Runtime)</span>
+            <audio id="masterAudio" controls></audio>
+            <div class="download-box" id="dlContainer">
+                <canvas id="coverCanvas" width="300" height="300"></canvas>
+                <button class="dl-btn" onclick="downloadStitchedSong()">💾 Download Master Song with Brand Cover</button>
+            </div>
+        </div>
+        <div class="audio-card"><span>Track Mix Variant A</span><audio id="audioPlayer1" controls></audio></div>
+        <div class="audio-card"><span>Track Mix Variant B</span><audio id="audioPlayer2" controls></audio></div>
+        <div class="audio-card"><span>Track Mix Variant C</span><audio id="audioPlayer3" controls></audio></div>
+        <div class="audio-card"><span>Track Mix Variant D</span><audio id="audioPlayer4" controls></audio></div>
+    </div>
+
+    <label>Generated Native Lyrics</label>
+    <div id="lyricsBox">Lyrics layout will stream here...</div>
+
+    <div class="app-footer">
+        <div>Created and developed by <span class="developer-tag">Racharla Saikrishna and co</span></div>
+        <div class="social-links">
+            <a href="https://youtube.com" target="_blank">📺 YouTube: @racharlagpt</a> | 
+            <a href="mailto:racharkagpt@gmail.com">✉️ Contact: racharkagpt@gmail.com</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentLanguage = "Telugu";
+    let compiledAudioBlob = null;
+
+    window.onload = function() {
+        const savedKey = localStorage.getItem('racharla_secure_key');
+        if(savedKey) {
+            document.getElementById('geminiKey').value = savedKey;
+        } else {
+            document.getElementById('rememberKeyCheck').checked = false;
+        }
+    }
+
+    function handleKeyStorage() {
+        const key = document.getElementById('geminiKey').value.trim();
+        const shouldRemember = document.getElementById('rememberKeyCheck').checked;
+        if (shouldRemember && key) {
