@@ -69,8 +69,11 @@
         
         button#generateBtn { 
             background: var(--primary); color: #111; border: none; padding: 16px 20px; border-radius: 8px; 
-            cursor: pointer; font-weight: bold; width: 100%; font-size: 16px; margin-top: 15px;
+            cursor: pointer; font-weight: bold; width: 100%; font-size: 16px; margin-top: 15px; transition: 0.2s;
         }
+        button#generateBtn:hover { background: #00c49d; }
+        button#generateBtn:disabled { background: #444; color: #888; cursor: not-allowed; }
+
         #status { margin: 20px 0; padding: 12px; border-radius: 8px; background: #1a1a24; text-align: center; color: #00bfff; font-weight: bold; line-height: 1.4; white-space: pre-line; }
         .audio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; }
         .audio-card { background: var(--input-bg); padding: 15px; border-radius: 8px; border: 1px solid #2d2d3d; text-align: center; }
@@ -96,7 +99,7 @@
         <div class="product-of">A Product of RacharlaGPT</div>
     </div>
     
-    <div class="security-badge">🔒 Direct Google AI Infrastructure Connected</div>
+    <div class="security-badge">🔒 Direct Google Client Gateway Connected</div>
     
     <div class="key-container">
         <label for="geminiKey">Gemini API Key</label>
@@ -113,19 +116,19 @@
         <div class="flex-child">
             <label for="genreSelect">Musical Style / Category</label>
             <select id="genreSelect">
-                <option value="Tollywood heavy mass dance beat, high energy electronic dhol drums, traditional commercial loop, fast tempo">Tollywood (Mass & Beats)</option>
-                <option value="Bollywood soft beautiful romantic cinematic melody, soulful acoustic guitar, warm classical flute, mid-tempo groove">Bollywood (Melody & Romantic)</option>
-                <option value="Epic majestic cinematic background orchestral score, grand brass strings, dramatic symphony harmony, trailer theme style">Cinematic (Background Score)</option>
-                <option value="Traditional spiritual devotional bhakti bhajan track, classical harmonium, calm sitar, meditative rhythm strings">Devotional (Bhakti Tracks)</option>
-                <option value="Lo-fi relaxed chill hip hop study beat, smooth vintage rhodes piano keys, mellow baseline drums rhythm">Lo-fi Chill Hop</option>
+                <option value="Tollywood heavy mass dance beat, high energy electronic dhol drums, fast tempo commercial track">Tollywood (Mass & Beats)</option>
+                <option value="Bollywood sweet romantic cinematic melody, acoustic guitar, soft classical flute, smooth groove">Bollywood (Melody & Romantic)</option>
+                <option value="Epic majestic cinematic background orchestral score, grand symphony strings, dramatic trailer theme style">Cinematic (Background Score)</option>
+                <option value="Traditional spiritual devotional bhakti bhajan track, classical harmonium, calm sitar rhythm melody">Devotional (Bhakti Tracks)</option>
+                <option value="Lo-fi relaxed chill hip hop study beat, smooth vintage rhodes piano keys, ambient rhythm drums">Lo-fi Chill Hop</option>
             </select>
         </div>
         <div class="flex-child">
             <label for="durationSelect">Target Audio Runtime</label>
             <select id="durationSelect">
-                <option value="1">1 Minute (Fast Generation)</option>
-                <option value="3">3 Minutes (Stitched Version)</option>
-                <option value="5">5 Minutes (Full Length Mix)</option>
+                <option value="1">1 Minute Mix</option>
+                <option value="3">3 Minutes Mix</option>
+                <option value="5">5 Minutes Mix</option>
             </select>
         </div>
     </div>
@@ -138,7 +141,7 @@
     </div>
 
     <label for="promptInput">Describe Topic / Custom Theme Context (Optional)</label>
-    <textarea id="promptInput" rows="2" placeholder="Example: Song about mother, happy friendly celebration vibe, heavy monsoon rain melody..."></textarea>
+    <textarea id="promptInput" rows="2" placeholder="Example: Song about friendship, celebration party feeling, heavy rain emotion..."></textarea>
     
     <button id="generateBtn" onclick="generateLongSong()">Compile Master Tracks & Lyrics</button>
     
@@ -146,7 +149,7 @@
     
     <div class="audio-grid">
         <div class="audio-card master">
-            <span>🔊 Full Master Continuous Track (Stitched Runtime)</span>
+            <span>🔊 Full Master Continuous Track</span>
             <audio id="masterAudio" controls></audio>
             <div class="download-box" id="dlContainer">
                 <canvas id="coverCanvas" width="300" height="300"></canvas>
