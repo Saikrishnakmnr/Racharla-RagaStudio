@@ -13,6 +13,7 @@
             --text-main: #ffffff;
             --text-muted: #8a8a98;
             --safe-green: #28a745;
+            --danger: #dc3545;
         }
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
@@ -40,11 +41,16 @@
         .powered-by { font-size: 13px; color: var(--text-muted); margin: 5px 0 2px 0; font-weight: 600; text-transform: uppercase; }
         .product-of { font-size: 11px; color: var(--primary); font-style: italic; margin-bottom: 15px; }
         
-        /* --- SECURE VAULT CONTAINER --- */
         .security-badge {
             background: rgba(40, 167, 69, 0.1); border: 1px solid var(--safe-green);
             padding: 8px 12px; border-radius: 6px; font-size: 12px; color: #63e281;
             margin-bottom: 10px; display: flex; align-items: center; gap: 6px; font-weight: 600;
+        }
+        .key-container { position: relative; }
+        .clear-btn {
+            position: absolute; right: 10px; top: 38px; background: var(--danger); 
+            color: white; border: none; padding: 4px 8px; border-radius: 4px; 
+            font-size: 11px; cursor: pointer; font-weight: bold;
         }
         .privacy-row { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-muted); margin-bottom: 15px; }
         .privacy-row input[type="checkbox"] { width: auto; margin: 0; cursor: pointer; }
@@ -65,7 +71,7 @@
             background: var(--primary); color: #111; border: none; padding: 16px 20px; border-radius: 8px; 
             cursor: pointer; font-weight: bold; width: 100%; font-size: 16px; margin-top: 15px;
         }
-        #status { margin: 20px 0; padding: 12px; border-radius: 8px; background: #1a1a24; text-align: center; color: #00bfff; font-weight: bold; }
+        #status { margin: 20px 0; padding: 12px; border-radius: 8px; background: #1a1a24; text-align: center; color: #00bfff; font-weight: bold; line-height: 1.4; }
         .audio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; }
         .audio-card { background: var(--input-bg); padding: 15px; border-radius: 8px; border: 1px solid #2d2d3d; text-align: center; }
         .audio-card.master { grid-column: span 2; background: #162524; border: 1px solid var(--primary); }
@@ -90,10 +96,13 @@
         <div class="product-of">A Product of RacharlaGPT</div>
     </div>
     
-    <div class="security-badge">🔒 End-to-End Client Encryption Active (Direct Google API Link)</div>
+    <div class="security-badge">🔒 Secure Gateway Connection Verified</div>
     
-    <label for="geminiKey">Gemini API Key</label>
-    <input type="password" id="geminiKey" placeholder="Paste your secret key here..." oninput="handleKeyStorage()">
+    <div class="key-container">
+        <label for="geminiKey">Gemini API Key</label>
+        <input type="password" id="geminiKey" placeholder="AI Studio Key (AIzaSy...)" oninput="handleKeyStorage()">
+        <button class="clear-btn" onclick="clearSavedKey()">Clear Memory</button>
+    </div>
     
     <div class="privacy-row">
         <input type="checkbox" id="rememberKeyCheck" checked onchange="handleKeyStorage()">
@@ -138,7 +147,9 @@
     <div class="audio-grid">
         <div class="audio-card master">
             <span>🔊 Full Master Continuous Track (Stitched Runtime)</span>
-            <audio id="masterAudio" controls></audio>
+            <div id="masterAudioTarget">
+                <audio id="masterAudio" controls></audio>
+            </div>
             <div class="download-box" id="dlContainer">
                 <canvas id="coverCanvas" width="300" height="300"></canvas>
                 <button class="dl-btn" onclick="downloadStitchedSong()">💾 Download Master Song with Brand Cover</button>
@@ -167,15 +178,3 @@
     let compiledAudioBlob = null;
 
     window.onload = function() {
-        const savedKey = localStorage.getItem('racharla_secure_key');
-        if(savedKey) {
-            document.getElementById('geminiKey').value = savedKey;
-        } else {
-            document.getElementById('rememberKeyCheck').checked = false;
-        }
-    }
-
-    function handleKeyStorage() {
-        const key = document.getElementById('geminiKey').value.trim();
-        const shouldRemember = document.getElementById('rememberKeyCheck').checked;
-        if (shouldRemember && key) {
