@@ -4,14 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Racharla RagaStudio - Powered by RacharlaGPT</title>
-    <!-- Official Google AI SDK to completely bypass browser CORS blocks -->
-    <script type="importmap">
-      {
-        "imports": {
-          "@google/generative-ai": "https://esm.run"
-        }
-      }
-    </script>
     <style>
         :root {
             --primary: #00ecbd;
@@ -25,14 +17,8 @@
         }
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background: var(--bg-dark); 
-            color: var(--text-main); 
-            padding: 20px; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
+            background: var(--bg-dark); color: var(--text-main); padding: 20px; 
+            display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0;
         }
         .container { 
             width: 100%; max-width: 700px; background: var(--card-bg); padding: 30px; 
@@ -48,21 +34,15 @@
         h2 { margin: 0; color: var(--primary); font-size: 28px; font-weight: 800; }
         .powered-by { font-size: 13px; color: var(--text-muted); margin: 5px 0 2px 0; font-weight: 600; text-transform: uppercase; }
         .product-of { font-size: 11px; color: var(--primary); font-style: italic; margin-bottom: 15px; }
-        
         .security-badge {
             background: rgba(40, 167, 69, 0.1); border: 1px solid var(--safe-green);
-            padding: 8px 12px; border-radius: 6px; font-size: 12px; color: #63e281;
-            margin-bottom: 15px; display: flex; align-items: center; gap: 6px; font-weight: 600;
+            padding: 8px 12px; border-radius: 6px; font-size: 12px; color: #63e281; margin-bottom: 15px; display: flex; align-items: center; gap: 6px; font-weight: 600;
         }
         .key-container { position: relative; }
         .clear-btn {
             position: absolute; right: 10px; top: 38px; background: var(--danger); 
-            color: white; border: none; padding: 4px 8px; border-radius: 4px; 
-            font-size: 11px; cursor: pointer; font-weight: bold;
+            color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 11px; cursor: pointer; font-weight: bold;
         }
-        .privacy-row { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--text-muted); margin-bottom: 15px; }
-        .privacy-row input[type="checkbox"] { width: auto; margin: 0; cursor: pointer; }
-
         label { display: block; margin-top: 15px; font-weight: bold; color: #ccc; font-size: 14px; }
         textarea, input, select { 
             width: 100%; padding: 12px; margin: 8px 0 12px 0; background: var(--input-bg); 
@@ -74,14 +54,10 @@
         .lang-options { display: flex; gap: 10px; margin: 8px 0 12px 0; }
         .lang-btn { flex: 1; padding: 12px; background: var(--input-bg); border: 1px solid #333; color: white; border-radius: 6px; cursor: pointer; font-weight: bold; }
         .lang-btn.active { background: var(--primary); color: #000; border-color: var(--primary); }
-        
         button#generateBtn { 
             background: var(--primary); color: #111; border: none; padding: 16px 20px; border-radius: 8px; 
-            cursor: pointer; font-weight: bold; width: 100%; font-size: 16px; margin-top: 15px; transition: 0.2s;
+            cursor: pointer; font-weight: bold; width: 100%; font-size: 16px; margin-top: 15px;
         }
-        button#generateBtn:hover { background: #00c49d; }
-        button#generateBtn:disabled { background: #444; color: #888; cursor: not-allowed; }
-
         #status { margin: 20px 0; padding: 12px; border-radius: 8px; background: #1a1a24; text-align: center; color: #00bfff; font-weight: bold; line-height: 1.4; white-space: pre-line; }
         .audio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; }
         .audio-card { background: var(--input-bg); padding: 15px; border-radius: 8px; border: 1px solid #2d2d3d; text-align: center; }
@@ -92,10 +68,6 @@
         .dl-btn { background: #007bff; color: white; border: none; padding: 12px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; width: 100%; }
         #coverCanvas { display: none; margin: 15px auto; border-radius: 8px; }
         #lyricsBox { background: #1a1a24; padding: 15px; border-radius: 8px; text-align: left; white-space: pre-line; max-height: 250px; overflow-y: auto; border: 1px solid #2a2a35; font-size: 15px; line-height: 1.6; }
-        
-        .copy-container { text-align: right; margin-top: -5px; margin-bottom: 10px; }
-        .copy-btn { background: #333; color: #fff; border: 1px solid #444; padding: 4px 10px; border-radius: 4px; font-size: 11px; cursor: pointer; font-weight: bold; }
-
         .app-footer { margin-top: 35px; padding-top: 20px; border-top: 1px solid #22222f; text-align: center; font-size: 13px; color: var(--text-muted); }
         .developer-tag { font-weight: bold; color: #ffffff; }
         .social-links a { color: var(--primary); text-decoration: none; margin: 0 10px; font-weight: bold; }
@@ -110,8 +82,7 @@
         <div class="powered-by">Powered by RacharlaGPT</div>
         <div class="product-of">A Product of RacharlaGPT</div>
     </div>
-    
-    <div class="security-badge">🔒 SDK Verification Tunnel Active</div>
+    <div class="security-badge">🔒 Secure Server Proxy Workflow Connected</div>
     
     <div class="key-container">
         <label for="geminiKey">Gemini API Key</label>
@@ -119,20 +90,14 @@
         <button class="clear-btn" onclick="clearSavedKey()">Clear Key</button>
     </div>
     
-    <div class="privacy-row">
-        <input type="checkbox" id="rememberKeyCheck" checked onchange="handleKeyStorage()">
-        <label for="rememberKeyCheck" style="display:inline; margin:0; font-weight:normal; cursor:pointer;">Remember key securely</label>
-    </div>
-    
     <div class="flex-row">
         <div class="flex-child">
             <label for="genreSelect">Musical Style / Category</label>
             <select id="genreSelect">
-                <option value="Tollywood heavy mass dance beat, high energy electronic dhol drums, fast tempo commercial track">Tollywood (Mass & Beats)</option>
-                <option value="Bollywood sweet romantic cinematic melody, acoustic guitar, soft classical flute, smooth groove">Bollywood (Melody & Romantic)</option>
-                <option value="Epic majestic cinematic background orchestral score, grand symphony strings, dramatic trailer theme style">Cinematic (Background Score)</option>
-                <option value="Traditional spiritual devotional bhakti bhajan track, classical harmonium, calm sitar rhythm melody">Devotional (Bhakti Tracks)</option>
-                <option value="Lo-fi relaxed chill hip hop study beat, smooth vintage rhodes piano keys, ambient rhythm drums">Lo-fi Chill Hop</option>
+                <option value="Tollywood heavy mass dance beat, high energy electronic dhol drums">Tollywood (Mass & Beats)</option>
+                <option value="Bollywood sweet romantic cinematic melody, acoustic guitar, soft flute">Bollywood (Melody & Romantic)</option>
+                <option value="Epic majestic cinematic background orchestral score, grand symphony strings">Cinematic (Background Score)</option>
+                <option value="Traditional spiritual devotional bhakti bhajan track, classical harmonium">Devotional (Bhakti Tracks)</option>
             </select>
         </div>
         <div class="flex-child">
@@ -153,24 +118,59 @@
     </div>
 
     <label for="promptInput">Describe Topic / Custom Theme Context</label>
-    <textarea id="promptInput" rows="2" placeholder="Example: Song about friendship, celebration party feeling, heavy rain emotion..."></textarea>
+    <textarea id="promptInput" rows="2" placeholder="Example: Song about friendship, celebration party feeling..."></textarea>
     
     <button id="generateBtn" onclick="executeStudioWorkflow()">Compile Master Tracks & Lyrics</button>
-    
     <div id="status">Status: Ready to orchestrate setup</div>
 
-    <label>Generated Native Lyrics (Step 1 Blueprint)</label>
-    <div class="copy-container">
-        <button class="copy-btn" onclick="copyLyricsText()">📋 Copy Lyrics</button>
-    </div>
+    <label>Generated Native Lyrics</label>
     <div id="lyricsBox">Lyrics layout will stream here first...</div>
     
     <div class="audio-grid">
         <div class="audio-card master">
-            <span>🔊 Full Master Continuous Track (Stitched Automation)</span>
+            <span>🔊 Full Master Continuous Track</span>
             <audio id="masterAudio" controls></audio>
             <div class="download-box" id="dlContainer">
                 <canvas id="coverCanvas" width="300" height="300"></canvas>
                 <button class="dl-btn" onclick="downloadStitchedSong()">💾 Download Master Song with Brand Cover</button>
             </div>
         </div>
+        <div class="audio-card"><span>Track Mix Variant A</span><audio id="audioPlayer1" controls></audio></div>
+        <div class="audio-card"><span>Track Mix Variant B</span><audio id="audioPlayer2" controls></audio></div>
+        <div class="audio-card"><span>Track Mix Variant C</span><audio id="audioPlayer3" controls></audio></div>
+        <div class="audio-card"><span>Track Mix Variant D</span><audio id="audioPlayer4" controls></audio></div>
+    </div>
+
+    <div class="app-footer">
+        <div>Created and developed by <span class="developer-tag">Racharla Saikrishna and co</span></div>
+        <div class="social-links">
+            <a href="https://youtube.com" target="_blank">📺 YouTube: @racharlagpt</a> | 
+            <a href="mailto:racharkagpt@gmail.com">✉️ Contact: racharkagpt@gmail.com</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentLanguage = "Telugu";
+    let compiledAudioBlob = null;
+
+    window.onload = function() {
+        const savedKey = localStorage.getItem('racharla_secure_key');
+        if(savedKey) document.getElementById('geminiKey').value = savedKey;
+    }
+
+    function handleKeyStorage() {
+        const key = document.getElementById('geminiKey').value.trim();
+        if (key) localStorage.setItem('racharla_secure_key', key);
+    }
+
+    function clearSavedKey() {
+        localStorage.removeItem('racharla_secure_key');
+        document.getElementById('geminiKey').value = "";
+        alert("Saved API key cleared.");
+    }
+
+    function setLanguage(lang) {
+        currentLanguage = lang;
+        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+        if(lang === 'Telugu') document.getElementById('lang-te').classList.add('active');
