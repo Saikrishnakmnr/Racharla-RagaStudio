@@ -84,6 +84,11 @@
         .dl-btn { background: #007bff; color: white; border: none; padding: 12px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; width: 100%; }
         #coverCanvas { display: none; margin: 15px auto; border-radius: 8px; }
         #lyricsBox { background: #1a1a24; padding: 15px; border-radius: 8px; text-align: left; white-space: pre-line; max-height: 250px; overflow-y: auto; border: 1px solid #2a2a35; font-size: 15px; line-height: 1.6; }
+        
+        .copy-container { text-align: right; margin-top: -5px; margin-bottom: 10px; }
+        .copy-btn { background: #333; color: #fff; border: 1px solid #444; padding: 4px 10px; border-radius: 4px; font-size: 11px; cursor: pointer; font-weight: bold; }
+        .copy-btn:hover { background: #444; }
+
         .app-footer { margin-top: 35px; padding-top: 20px; border-top: 1px solid #22222f; text-align: center; font-size: 13px; color: var(--text-muted); }
         .developer-tag { font-weight: bold; color: #ffffff; }
         .social-links a { color: var(--primary); text-decoration: none; margin: 0 10px; font-weight: bold; }
@@ -140,16 +145,22 @@
         <button class="lang-btn" id="lang-en" onclick="setLanguage('English')">English</button>
     </div>
 
-    <label for="promptInput">Describe Topic / Custom Theme Context (Optional)</label>
+    <label for="promptInput">Describe Topic / Custom Theme Context</label>
     <textarea id="promptInput" rows="2" placeholder="Example: Song about friendship, celebration party feeling, heavy rain emotion..."></textarea>
     
-    <button id="generateBtn" onclick="generateLongSong()">Compile Master Tracks & Lyrics</button>
+    <button id="generateBtn" onclick="executeStudioWorkflow()">Compile Master Tracks & Lyrics</button>
     
     <div id="status">Status: Ready to orchestrate setup</div>
+
+    <label>Generated Native Lyrics (Step 1 Blueprint)</label>
+    <div class="copy-container">
+        <button class="copy-btn" onclick="copyLyricsText()">📋 Copy Lyrics</button>
+    </div>
+    <div id="lyricsBox">Lyrics layout will stream here first...</div>
     
     <div class="audio-grid">
         <div class="audio-card master">
-            <span>🔊 Full Master Continuous Track</span>
+            <span>🔊 Full Master Continuous Track (Stitched Automation)</span>
             <audio id="masterAudio" controls></audio>
             <div class="download-box" id="dlContainer">
                 <canvas id="coverCanvas" width="300" height="300"></canvas>
@@ -157,14 +168,3 @@
             </div>
         </div>
         <div class="audio-card"><span>Track Mix Variant A</span><audio id="audioPlayer1" controls></audio></div>
-        <div class="audio-card"><span>Track Mix Variant B</span><audio id="audioPlayer2" controls></audio></div>
-        <div class="audio-card"><span>Track Mix Variant C</span><audio id="audioPlayer3" controls></audio></div>
-        <div class="audio-card"><span>Track Mix Variant D</span><audio id="audioPlayer4" controls></audio></div>
-    </div>
-
-    <label>Generated Native Lyrics</label>
-    <div id="lyricsBox">Lyrics layout will stream here...</div>
-
-    <div class="app-footer">
-        <div>Created and developed by <span class="developer-tag">Racharla Saikrishna and co</span></div>
-        <div class="social-links">
