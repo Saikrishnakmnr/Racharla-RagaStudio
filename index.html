@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Racharla RagaStudio - Secured Suite</title>
+    <title>Racharla RagaStudio - Powered by RacharlaGPT</title>
     <style>
         :root {
             --primary: #00ecbd;
@@ -44,7 +44,7 @@
         .security-badge {
             background: rgba(40, 167, 69, 0.1); border: 1px solid var(--safe-green);
             padding: 8px 12px; border-radius: 6px; font-size: 12px; color: #63e281;
-            margin-bottom: 10px; display: flex; align-items: center; gap: 6px; font-weight: 600;
+            margin-bottom: 15px; display: flex; align-items: center; gap: 6px; font-weight: 600;
         }
         .key-container { position: relative; }
         .clear-btn {
@@ -71,7 +71,7 @@
             background: var(--primary); color: #111; border: none; padding: 16px 20px; border-radius: 8px; 
             cursor: pointer; font-weight: bold; width: 100%; font-size: 16px; margin-top: 15px;
         }
-        #status { margin: 20px 0; padding: 12px; border-radius: 8px; background: #1a1a24; text-align: center; color: #00bfff; font-weight: bold; line-height: 1.4; }
+        #status { margin: 20px 0; padding: 12px; border-radius: 8px; background: #1a1a24; text-align: center; color: #00bfff; font-weight: bold; line-height: 1.4; white-space: pre-line; }
         .audio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; }
         .audio-card { background: var(--input-bg); padding: 15px; border-radius: 8px; border: 1px solid #2d2d3d; text-align: center; }
         .audio-card.master { grid-column: span 2; background: #162524; border: 1px solid var(--primary); }
@@ -80,7 +80,7 @@
         .download-box { margin-top: 15px; display: none; text-align: center; }
         .dl-btn { background: #007bff; color: white; border: none; padding: 12px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; width: 100%; }
         #coverCanvas { display: none; margin: 15px auto; border-radius: 8px; }
-        #lyricsBox { background: #1a1a24; padding: 15px; border-radius: 8px; text-align: left; white-space: pre-line; max-height: 200px; overflow-y: auto; border: 1px solid #2a2a35; }
+        #lyricsBox { background: #1a1a24; padding: 15px; border-radius: 8px; text-align: left; white-space: pre-line; max-height: 250px; overflow-y: auto; border: 1px solid #2a2a35; font-size: 15px; line-height: 1.6; }
         .app-footer { margin-top: 35px; padding-top: 20px; border-top: 1px solid #22222f; text-align: center; font-size: 13px; color: var(--text-muted); }
         .developer-tag { font-weight: bold; color: #ffffff; }
         .social-links a { color: var(--primary); text-decoration: none; margin: 0 10px; font-weight: bold; }
@@ -96,12 +96,12 @@
         <div class="product-of">A Product of RacharlaGPT</div>
     </div>
     
-    <div class="security-badge">🔒 Secure Gateway Connection Verified</div>
+    <div class="security-badge">🔒 Direct Google AI Infrastructure Connected</div>
     
     <div class="key-container">
         <label for="geminiKey">Gemini API Key</label>
-        <input type="password" id="geminiKey" placeholder="AI Studio Key (AIzaSy...)" oninput="handleKeyStorage()">
-        <button class="clear-btn" onclick="clearSavedKey()">Clear Memory</button>
+        <input type="password" id="geminiKey" placeholder="Enter key (AIzaSy...)" oninput="handleKeyStorage()">
+        <button class="clear-btn" onclick="clearSavedKey()">Clear Key</button>
     </div>
     
     <div class="privacy-row">
@@ -113,19 +113,19 @@
         <div class="flex-child">
             <label for="genreSelect">Musical Style / Category</label>
             <select id="genreSelect">
-                <option value="Tollywood mass thumping dance beat with heavy local percussion">Tollywood (Mass & Beats)</option>
-                <option value="Bollywood sweet romantic cinematic melody with acoustic guitar and flute">Bollywood (Melody & Romantic)</option>
-                <option value="Epic majestic cinematic background score with classical orchestration">Cinematic (Background Score)</option>
-                <option value="Traditional spiritual devotional Bhakti track with classical harmonium and sitar">Devotional (Bhakti Tracks)</option>
-                <option value="Lo-fi relaxed chill hip hop beat for studying and focus">Lo-fi Chill Hop</option>
+                <option value="Tollywood heavy mass dance beat, high energy electronic dhol drums, traditional commercial loop, fast tempo">Tollywood (Mass & Beats)</option>
+                <option value="Bollywood soft beautiful romantic cinematic melody, soulful acoustic guitar, warm classical flute, mid-tempo groove">Bollywood (Melody & Romantic)</option>
+                <option value="Epic majestic cinematic background orchestral score, grand brass strings, dramatic symphony harmony, trailer theme style">Cinematic (Background Score)</option>
+                <option value="Traditional spiritual devotional bhakti bhajan track, classical harmonium, calm sitar, meditative rhythm strings">Devotional (Bhakti Tracks)</option>
+                <option value="Lo-fi relaxed chill hip hop study beat, smooth vintage rhodes piano keys, mellow baseline drums rhythm">Lo-fi Chill Hop</option>
             </select>
         </div>
         <div class="flex-child">
             <label for="durationSelect">Target Audio Runtime</label>
             <select id="durationSelect">
-                <option value="1">1 Minute</option>
-                <option value="3">3 Minutes</option>
-                <option value="5">5 Minutes</option>
+                <option value="1">1 Minute (Fast Generation)</option>
+                <option value="3">3 Minutes (Stitched Version)</option>
+                <option value="5">5 Minutes (Full Length Mix)</option>
             </select>
         </div>
     </div>
@@ -137,19 +137,17 @@
         <button class="lang-btn" id="lang-en" onclick="setLanguage('English')">English</button>
     </div>
 
-    <label for="promptInput">Describe Topic / Custom Context (Optional)</label>
-    <textarea id="promptInput" rows="2" placeholder="Example: A song about friendship, emotional rain vibes..."></textarea>
+    <label for="promptInput">Describe Topic / Custom Theme Context (Optional)</label>
+    <textarea id="promptInput" rows="2" placeholder="Example: Song about mother, happy friendly celebration vibe, heavy monsoon rain melody..."></textarea>
     
     <button id="generateBtn" onclick="generateLongSong()">Compile Master Tracks & Lyrics</button>
     
-    <div id="status">Status: Ready to orchestrate layout</div>
+    <div id="status">Status: Ready to orchestrate setup</div>
     
     <div class="audio-grid">
         <div class="audio-card master">
             <span>🔊 Full Master Continuous Track (Stitched Runtime)</span>
-            <div id="masterAudioTarget">
-                <audio id="masterAudio" controls></audio>
-            </div>
+            <audio id="masterAudio" controls></audio>
             <div class="download-box" id="dlContainer">
                 <canvas id="coverCanvas" width="300" height="300"></canvas>
                 <button class="dl-btn" onclick="downloadStitchedSong()">💾 Download Master Song with Brand Cover</button>
@@ -167,14 +165,3 @@
     <div class="app-footer">
         <div>Created and developed by <span class="developer-tag">Racharla Saikrishna and co</span></div>
         <div class="social-links">
-            <a href="https://youtube.com" target="_blank">📺 YouTube: @racharlagpt</a> | 
-            <a href="mailto:racharkagpt@gmail.com">✉️ Contact: racharkagpt@gmail.com</a>
-        </div>
-    </div>
-</div>
-
-<script>
-    let currentLanguage = "Telugu";
-    let compiledAudioBlob = null;
-
-    window.onload = function() {
