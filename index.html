@@ -68,6 +68,8 @@
         .dl-btn { background: #007bff; color: white; border: none; padding: 12px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; width: 100%; }
         #coverCanvas { display: none; margin: 15px auto; border-radius: 8px; }
         #lyricsBox { background: #1a1a24; padding: 15px; border-radius: 8px; text-align: left; white-space: pre-line; max-height: 250px; overflow-y: auto; border: 1px solid #2a2a35; font-size: 15px; line-height: 1.6; }
+        .copy-container { text-align: right; margin-top: -5px; margin-bottom: 10px; }
+        .copy-btn { background: #333; color: #fff; border: 1px solid #444; padding: 4px 10px; border-radius: 4px; font-size: 11px; cursor: pointer; font-weight: bold; }
         .app-footer { margin-top: 35px; padding-top: 20px; border-top: 1px solid #22222f; text-align: center; font-size: 13px; color: var(--text-muted); }
         .developer-tag { font-weight: bold; color: #ffffff; }
         .social-links a { color: var(--primary); text-decoration: none; margin: 0 10px; font-weight: bold; }
@@ -123,7 +125,10 @@
     <button id="generateBtn" onclick="executeStudioWorkflow()">Compile Master Tracks & Lyrics</button>
     <div id="status">Status: Ready to orchestrate setup</div>
 
-    <label>Generated Native Lyrics</label>
+    <label>Generated Native Lyrics (Step 1 Blueprint)</label>
+    <div class="copy-container">
+        <button class="copy-btn" onclick="copyLyricsText()">📋 Copy Lyrics</button>
+    </div>
     <div id="lyricsBox">Lyrics layout will stream here first...</div>
     
     <div class="audio-grid">
@@ -165,12 +170,3 @@
     }
 
     function clearSavedKey() {
-        localStorage.removeItem('racharla_secure_key');
-        document.getElementById('geminiKey').value = "";
-        alert("Saved API key cleared.");
-    }
-
-    function setLanguage(lang) {
-        currentLanguage = lang;
-        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-        if(lang === 'Telugu') document.getElementById('lang-te').classList.add('active');
