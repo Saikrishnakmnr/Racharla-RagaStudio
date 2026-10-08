@@ -3,170 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Racharla RagaStudio - Powered by RacharlaGPT</title>
+    <title>RagaBrand - AI Music & Lyrics Generator</title>
+    <script src="https://tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cloudflare.com">
     <style>
-        :root {
-            --primary: #00ecbd;
-            --bg-dark: #0d0d11;
-            --card-bg: #15151e;
-            --input-bg: #1e1e28;
-            --text-main: #ffffff;
-            --text-muted: #8a8a98;
-            --safe-green: #28a745;
-            --danger: #dc3545;
+        .glass {
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
-        body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            background: var(--bg-dark); color: var(--text-main); padding: 20px; 
-            display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0;
+        .neon-glow {
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
         }
-        .container { 
-            width: 100%; max-width: 700px; background: var(--card-bg); padding: 30px; 
-            border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.7); box-sizing: border-box;
+        @keyframes pulse-slow {
+            0%, 100% { transform: scale(1); opacity: 0.4; }
+            50% { transform: scale(1.05); opacity: 0.8; }
         }
-        .brand-header { text-align: center; margin-bottom: 25px; }
-        .brand-logo {
-            display: inline-flex; align-items: center; justify-content: center;
-            background: linear-gradient(135deg, #00ecbd, #00bfff); color: #000;
-            font-weight: 900; font-size: 22px; width: 55px; height: 55px;
-            border-radius: 12px; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0, 236, 189, 0.4);
+        .bg-glow {
+            animation: pulse-slow 8s infinite ease-in-out;
         }
-        h2 { margin: 0; color: var(--primary); font-size: 28px; font-weight: 800; }
-        .powered-by { font-size: 13px; color: var(--text-muted); margin: 5px 0 2px 0; font-weight: 600; text-transform: uppercase; }
-        .product-of { font-size: 11px; color: var(--primary); font-style: italic; margin-bottom: 15px; }
-        .security-badge {
-            background: rgba(40, 167, 69, 0.1); border: 1px solid var(--safe-green);
-            padding: 8px 12px; border-radius: 6px; font-size: 12px; color: #63e281; margin-bottom: 15px; display: flex; align-items: center; gap: 6px; font-weight: 600;
-        }
-        .key-container { position: relative; }
-        .clear-btn {
-            position: absolute; right: 10px; top: 38px; background: var(--danger); 
-            color: white; border: none; padding: 4px 8px; border-radius: 4px; font-size: 11px; cursor: pointer; font-weight: bold;
-        }
-        label { display: block; margin-top: 15px; font-weight: bold; color: #ccc; font-size: 14px; }
-        textarea, input, select { 
-            width: 100%; padding: 12px; margin: 8px 0 12px 0; background: var(--input-bg); 
-            color: white; border: 1px solid #2d2d3d; border-radius: 8px; box-sizing: border-box; font-size: 15px;
-        }
-        textarea:focus, input:focus, select:focus { outline: 1px solid var(--primary); }
-        .flex-row { display: flex; gap: 15px; margin-bottom: 5px; }
-        .flex-child { flex: 1; }
-        .lang-options { display: flex; gap: 10px; margin: 8px 0 12px 0; }
-        .lang-btn { flex: 1; padding: 12px; background: var(--input-bg); border: 1px solid #333; color: white; border-radius: 6px; cursor: pointer; font-weight: bold; }
-        .lang-btn.active { background: var(--primary); color: #000; border-color: var(--primary); }
-        button#generateBtn { 
-            background: var(--primary); color: #111; border: none; padding: 16px 20px; border-radius: 8px; 
-            cursor: pointer; font-weight: bold; width: 100%; font-size: 16px; margin-top: 15px;
-        }
-        #status { margin: 20px 0; padding: 12px; border-radius: 8px; background: #1a1a24; text-align: center; color: #00bfff; font-weight: bold; line-height: 1.4; white-space: pre-line; }
-        .audio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px; }
-        .audio-card { background: var(--input-bg); padding: 15px; border-radius: 8px; border: 1px solid #2d2d3d; text-align: center; }
-        .audio-card.master { grid-column: span 2; background: #162524; border: 1px solid var(--primary); }
-        .audio-card span { font-size: 12px; color: var(--primary); display: block; margin-bottom: 8px; font-weight: bold; text-transform: uppercase; }
-        audio { width: 100%; }
-        .download-box { margin-top: 15px; display: none; text-align: center; }
-        .dl-btn { background: #007bff; color: white; border: none; padding: 12px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; width: 100%; }
-        #coverCanvas { display: none; margin: 15px auto; border-radius: 8px; }
-        #lyricsBox { background: #1a1a24; padding: 15px; border-radius: 8px; text-align: left; white-space: pre-line; max-height: 250px; overflow-y: auto; border: 1px solid #2a2a35; font-size: 15px; line-height: 1.6; }
-        .copy-container { text-align: right; margin-top: -5px; margin-bottom: 10px; }
-        .copy-btn { background: #333; color: #fff; border: 1px solid #444; padding: 4px 10px; border-radius: 4px; font-size: 11px; cursor: pointer; font-weight: bold; }
-        .app-footer { margin-top: 35px; padding-top: 20px; border-top: 1px solid #22222f; text-align: center; font-size: 13px; color: var(--text-muted); }
-        .developer-tag { font-weight: bold; color: #ffffff; }
-        .social-links a { color: var(--primary); text-decoration: none; margin: 0 10px; font-weight: bold; }
     </style>
 </head>
-<body>
+<body class="bg-[#0b0f19] text-slate-100 min-h-screen font-sans relative overflow-x-hidden selection:bg-purple-500 selection:text-white">
 
-<div class="container">
-    <div class="brand-header">
-        <div class="brand-logo">R⚡G</div>
-        <h2>Racharla RagaStudio</h2>
-        <div class="powered-by">Powered by RacharlaGPT</div>
-        <div class="product-of">A Product of RacharlaGPT</div>
-    </div>
-    <div class="security-badge">🔒 Secure Server Proxy Workflow Connected</div>
-    
-    <div class="key-container">
-        <label for="geminiKey">Gemini API Key</label>
-        <input type="password" id="geminiKey" placeholder="Enter key (AIzaSy...)" oninput="handleKeyStorage()">
-        <button class="clear-btn" onclick="clearSavedKey()">Clear Key</button>
-    </div>
-    
-    <div class="flex-row">
-        <div class="flex-child">
-            <label for="genreSelect">Musical Style / Category</label>
-            <select id="genreSelect">
-                <option value="Tollywood heavy mass dance beat, high energy electronic dhol drums">Tollywood (Mass & Beats)</option>
-                <option value="Bollywood sweet romantic cinematic melody, acoustic guitar, soft flute">Bollywood (Melody & Romantic)</option>
-                <option value="Epic majestic cinematic background orchestral score, grand symphony strings">Cinematic (Background Score)</option>
-                <option value="Traditional spiritual devotional bhakti bhajan track, classical harmonium">Devotional (Bhakti Tracks)</option>
-            </select>
-        </div>
-        <div class="flex-child">
-            <label for="durationSelect">Target Audio Runtime</label>
-            <select id="durationSelect">
-                <option value="1">1 Minute Mix</option>
-                <option value="3">3 Minutes Mix</option>
-                <option value="5">5 Minutes Mix</option>
-            </select>
-        </div>
-    </div>
+    <!-- Decorative Background Glows -->
+    <div class="absolute top-[-10%] left-[-10%] w-[50vw] h-[50vw] rounded-full bg-purple-900/20 blur-[120px] bg-glow"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-[50vw] h-[50vw] rounded-full bg-blue-900/20 blur-[120px] bg-glow" style="animation-delay: -4s;"></div>
 
-    <label>Select Target Language</label>
-    <div class="lang-options">
-        <button class="lang-btn active" id="lang-te" onclick="setLanguage('Telugu')">తెలుగు</button>
-        <button class="lang-btn" id="lang-hi" onclick="setLanguage('Hindi')">हिन्दी</button>
-        <button class="lang-btn" id="lang-en" onclick="setLanguage('English')">English</button>
-    </div>
-
-    <label for="promptInput">Describe Topic / Custom Theme Context</label>
-    <textarea id="promptInput" rows="2" placeholder="Example: Song about friendship, celebration party feeling..."></textarea>
-    
-    <button id="generateBtn" onclick="executeStudioWorkflow()">Compile Master Tracks & Lyrics</button>
-    <div id="status">Status: Ready to orchestrate setup</div>
-
-    <label>Generated Native Lyrics (Step 1 Blueprint)</label>
-    <div class="copy-container">
-        <button class="copy-btn" onclick="copyLyricsText()">📋 Copy Lyrics</button>
-    </div>
-    <div id="lyricsBox">Lyrics layout will stream here first...</div>
-    
-    <div class="audio-grid">
-        <div class="audio-card master">
-            <span>🔊 Full Master Continuous Track</span>
-            <audio id="masterAudio" controls></audio>
-            <div class="download-box" id="dlContainer">
-                <canvas id="coverCanvas" width="300" height="300"></canvas>
-                <button class="dl-btn" onclick="downloadStitchedSong()">💾 Download Master Song with Brand Cover</button>
+    <!-- Main Container -->
+    <div class="max-w-6xl mx-auto px-4 py-8 relative z-10 min-h-screen flex flex-col justify-between">
+        
+        <!-- Header -->
+        <header class="flex flex-col sm:flex-row justify-between items-center gap-4 pb-6 border-b border-slate-800/60 mb-8">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-purple-600 to-blue-500 flex items-center justify-center neon-glow">
+                    <i class="fa-solid fa-compact-disc text-2xl text-white animate-spin" style="animation-duration: 8s;"></i>
+                </div>
+                <div>
+                    <h1 class="text-2xl font-bold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-purple-400">RagaBrand</h1>
+                    <p class="text-xs text-slate-400 tracking-widest uppercase">Powered by <span class="text-purple-400 font-semibold">RacharlaGPT</span></p>
+                </div>
             </div>
-        </div>
-        <div class="audio-card"><span>Track Mix Variant A</span><audio id="audioPlayer1" controls></audio></div>
-        <div class="audio-card"><span>Track Mix Variant B</span><audio id="audioPlayer2" controls></audio></div>
-        <div class="audio-card"><span>Track Mix Variant C</span><audio id="audioPlayer3" controls></audio></div>
-        <div class="audio-card"><span>Track Mix Variant D</span><audio id="audioPlayer4" controls></audio></div>
-    </div>
+            
+            <a href="https://youtube.com" target="_blank" class="flex items-center gap-2 bg-red-600/10 hover:bg-red-600/20 border border-red-500/30 px-4 py-2 rounded-full text-xs font-medium tracking-wide transition-all duration-300 group text-red-400">
+                <i class="fa-brands fa-youtube text-red-500 group-hover:scale-110 transition-transform"></i>
+                Subscribe on YouTube
+            </a>
+        </header>
 
-    <div class="app-footer">
-        <div>Created and developed by <span class="developer-tag">Racharla Saikrishna and co</span></div>
-        <div class="social-links">
-            <a href="https://youtube.com" target="_blank">📺 YouTube: @racharlagpt</a> | 
-            <a href="mailto:racharkagpt@gmail.com">✉️ Contact: racharkagpt@gmail.com</a>
-        </div>
-    </div>
-</div>
+        <!-- Application Body Grid -->
+        <main class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start my-auto">
+            
+            <!-- Left Side: Controls & Input -->
+            <div class="lg:col-span-5 flex flex-col gap-6">
+                <div class="glass p-6 rounded-2xl relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-purple-500 to-transparent"></div>
+                    
+                    <h2 class="text-lg font-semibold mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-sliders text-purple-400 text-sm"></i> Setup Dashboard
+                    </h2>
 
-<script>
-    let currentLanguage = "Telugu";
-    let compiledAudioBlob = null;
+                    <!-- API Key Input -->
+                    <div class="mb-4">
+                        <label class="block text-xs font-medium text-slate-400 uppercase tracking-wider mb-2">Gemini Free API Key</label>
+                        <div class="relative">
+                            <input type="password" id="apiKeyInput" placeholder="AIzaSy..." class="w-full bg-slate-900/80 border border-slate-700/50 rounded-xl px-4 py-3 pl-10 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 transition-all">
+                            <i class="fa-solid fa-key absolute left-3.5 top-3.5 text-slate-500 text-xs"></i>
+                        </div>
+                        <p class="text-[11px] text-slate-500 mt-1.5">Your key remains securely inside your own local browser.</p>
+                    </div>
 
-    window.onload = function() {
-        const savedKey = localStorage.getItem('racharla_secure_key');
-        if(savedKey) document.getElementById('geminiKey').value = savedKey;
-    }
+                    <!-- Genre Picker -->
+                    <div class="mb-4">
+                        <label class="block text-xs font-medium text-slate-400 uppercase tracking-wider mb-2">Target Genre</label>
+                        <select id="genreSelect" class="w-full bg-slate-900/80 border border-slate-700/50 rounded-xl px-4 py-3 text-sm text-slate-200 focus:outline-none focus:border-purple-500 transition-all appearance-none cursor-pointer">
+                            <option value="Cinematic Synthwave">Neon Synthwave (80s Analog)</option>
+                            <option value="Modern Melodic EDM">Melodic EDM (Festival Anthems)</option>
+                            <option value="Lo-Fi Chill Hop">Lo-Fi Study Beat (Warm Vinyl)</option>
+                            <option value="Acoustic Pop Ballad">Emotional Pop Ballad (Piano & Strings)</option>
+                            <option value="Dark Underground Hip-Hop">Dark Trap / Hip-Hop (Heavy Bass)</option>
+                        </select>
+                    </div>
 
-    function handleKeyStorage() {
-        const key = document.getElementById('geminiKey').value.trim();
-        if (key) localStorage.setItem('racharla_secure_key', key);
-    }
+                    <!-- Prompt / Input Idea -->
+                    <div class="mb-5">
+                        <label class="block text-xs font-medium text-slate-400 uppercase tracking-wider mb-2">Song Concept / Vibe</label>
+                        <textarea id="conceptInput" rows="3" placeholder="e.g., A lonely astronaut looking at Earth, realization of time passing, deep emotional space aesthetic..." class="w-full bg-slate-900/80 border border-slate-700/50 rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-purple-500 transition-all resize-none"></textarea>
+                    </div>
 
-    function clearSavedKey() {
+                    <!-- Generate Button -->
+                    <button id="generateBtn" onclick="generateMusicAndLyrics()" class="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white font-medium py-3.5 px-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2 tracking-wide font-semibold text-sm shadow-lg shadow-purple-900/20 active:scale-[0.99]">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i>
+                        Generate Track & Lyrics
+                    </button>
+                </div>
+
+                <!-- Music Player Control Deck -->
+                <div class="glass p-5 rounded-2xl relative overflow-hidden">
+                    <h2 class="text-sm font-semibold mb-3 flex items-center gap-2 text-slate-300">
+                        <i class="fa-solid fa-waveform text-blue-400"></i> RagaBrand Audio Monitor
+                    </h2>
+                    
+                    <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-4 flex flex-col gap-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 id="playerTitle" class="text-sm font-medium text-white truncate max-w-[200px]">No Track Loaded</h3>
+                                <p id="playerGenre" class="text-xs text-slate-400">Select vibe and generate</p>
+                            </div>
+                            <!-- Playback Action Buttons -->
+                            <div class="flex items-center gap-2">
+                                <button id="playBtn" onclick="togglePlayback()" disabled class="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 text-slate-400 flex items-center justify-center transition-all cursor-not-allowed hover:text-white hover:border-purple-500">
+                                    <i id="playIcon" class="fa-solid fa-play ml-0.5"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Custom Reactive Progress Simulation -->
+                        <div class="w-full">
+                            <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
+                                <div id="audioProgress" class="bg-gradient-to-r from-purple-500 to-blue-500 h-full w-0 transition-all duration-300"></div>
+                            </div>
+                            <div class="flex justify-between items-center text-[10px] text-slate-500 mt-1">
+                                <span id="timeCurrent">0:00</span>
+                                <span id="timeTotal">0:00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Generated Output Terminal -->
+            <div class="lg:col-span-7 flex flex-col gap-4 h-full">
+                <div class="glass p-6 rounded-2xl flex flex-col h-[610px] relative">
+                    
+                    <!-- Tabs -->
+                    <div class="flex border-b border-slate-800/80 pb-3 mb-4 gap-4">
+                        <button id="tabLyricsBtn" onclick="switchTab('lyrics')" class="text-sm font-medium text-purple-400 border-b-2 border-purple-500 pb-2 transition-all px-1">
+                            <i class="fa-solid fa-file-audio mr-1.5"></i>Studio Lyrics
+                        </button>
+                        <button id="tabPromptBtn" onclick="switchTab('prompt')" class="text-sm font-medium text-slate-400 hover:text-slate-200 pb-2 transition-all px-1">
+                            <i class="fa-solid fa-sliders mr-1.5"></i>Suno / Udio Prompts
+                        </button>
+                    </div>
+
